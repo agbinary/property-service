@@ -1,0 +1,29 @@
+[
+  {
+    "house_number": "2",
+    "street": "",
+    "city": "Berlin",
+    "zip_code": "10119",
+    "lat": "52.5301255",
+    "lng": "13.40550818",
+    "price": "142900.0"
+  },
+  {
+    "house_number": "5",
+    "street": "Schönholzer Straße",
+    "city": "Berlin",
+    "zip_code": "10115",
+    "lat": "52.5382554",
+    "lng": "13.3984373",
+    "price": "239500.0"
+  },
+  {
+    "house_number": "1",
+    "street": "",
+    "city": "Berlin",
+    "zip_code": "10115",
+    "lat": "52.53177508",
+    "lng": "13.38815072",
+    "price": "239500.0"
+  }
+]
