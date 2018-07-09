@@ -54,7 +54,7 @@ describe API::V1::PropertiesController, type: :controller do
         it 'responds with no data was found' do
           get :nearby, params: valid_nearby_params_not_found
 
-          expect(response_body).to eq({'error'=>'No data was founded'})
+          expect(response_body).to eq({'error'=>'No data was found'})
         end
 
         it 'responds with not found status' do
@@ -67,9 +67,15 @@ describe API::V1::PropertiesController, type: :controller do
 
     context 'when params are invalid' do
       it 'raises an exception' do
-        expect do
-          get :nearby, params: invalid_nearby_params
-        end.to raise_error(Exceptions::InvalidInputParamsError)
+        get :nearby, params: invalid_nearby_params
+
+        expect(response_body).to eq({'errors'=>{'property_type'=>['house is not a valid property_type']}})
+      end
+
+      it 'responds with unprocessable entity status' do
+        get :nearby, params: invalid_nearby_params
+
+        expect(response).to have_http_status 422
       end
     end
   end

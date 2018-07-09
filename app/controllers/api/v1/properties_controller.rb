@@ -4,18 +4,18 @@ module API
   module V1
     class PropertiesController < ApplicationController
       def nearby
-        lng = nearby_params[:lng].to_f
-        lat = nearby_params[:lat].to_f
-        property_type = nearby_params[:property_type]
-        marketing_type = nearby_params[:marketing_type]
+        nearby_validator = NearbyParamsValidator.new(nearby_params)
 
-        ParamsValidatorService.call(lng, lat, property_type, marketing_type)
-        properties = Property.search_nearby_properties(lng, lat, property_type, marketing_type)
+        if nearby_validator.valid?
+          properties = Property.search_nearby_properties(nearby_params)
 
-        if properties.present?
-          render json: properties, status: :ok
+          if properties.present?
+            render json: properties, status: :ok
+          else
+            render json: { error: 'No data was found' }, status: :not_found
+          end
         else
-          render json: { error: 'No data was founded' }, status: :not_found
+          render json: {errors: nearby_validator.errors}, status: :unprocessable_entity
         end
       end
 
